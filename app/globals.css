@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+.hero-section {
+    background-image: linear-gradient(
+        #0a1628c4,
+        rgba(36, 14, 83, 0.603)
+      ), 
+      url('./assets/buyTicket.webp');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }
