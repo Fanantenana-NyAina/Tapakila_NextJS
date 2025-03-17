@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
+      <link rel="icon" href="/icon-removebg-preview.png" />
       <body>
         <Header />
         <main>{children}</main>
