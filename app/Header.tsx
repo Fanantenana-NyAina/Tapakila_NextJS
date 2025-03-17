@@ -5,8 +5,12 @@ import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
 import { useState } from "react";
 
+type MenyItem = "Home" | "Event" | "About" | "Contact"
+
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
+
+  const menuItems: MenyItem[] = ["Home", "Event", "About", "Contact"]
 
   return (
     <header className="w-full bg-[#0a1128] text-white">
@@ -20,12 +24,12 @@ export default function Header() {
 
         <div className="flex items-center gap-9 ml-auto">
           <ul className="hidden xl:flex items-center gap-9 font-medium text-base">
-            {["Home", "Events", "About", "Contact"].map((item) => (
+            {menuItems.map((item) => (
               <li key={item} className="relative cursor-pointer transition-all 
                 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] 
                 before:bg-blue-400 before:transition-all before:duration-300 before:content-[''] 
                 hover:before:w-full">
-                <Link href={`/${item.toLowerCase().replace(" ", "-").replace("à", "a")}`}>
+                <Link href={item == "Home" ? "/" : `/${item}`}>
                   {item}
                 </Link>
               </li>
@@ -60,7 +64,7 @@ export default function Header() {
           </div>
 
           <div className="flex flex-col items-center pt-8">
-            {["Nos solutions", "Tarifs", "À propos", "Blog", "Contact"].map((item) => (
+            {menuItems.map((item) => (
               <Link
                 key={item}
                 href={`/${item.toLowerCase().replace(" ", "-").replace("à", "a")}`}

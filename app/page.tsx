@@ -1,6 +1,8 @@
 import { FaSearch } from "react-icons/fa";
 
 export default function Home() {
+  const url: string = "https://jsonplaceholder.typicode.com/";
+
   return (
     <div className="hero-section flex flex-col justify-center items-center py-16 md:py-44 z-50 h-full pb-48 bg-cover bg-center">
       <div className="flex flex-col justify-center items-center text-center w-full md:w-3xl px-4 md:px-0">
