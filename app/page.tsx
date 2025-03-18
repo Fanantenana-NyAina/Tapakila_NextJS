@@ -20,11 +20,10 @@ export default function Home() {
           excepturi impedit explicabo rem ipsa ipsam!
         </p>
       </div>
-      <div className='flex flex-col items-center justify-center w-full'>
-        
+      <div className='relative w-full max-w-md'>
+        <SearchBar setResults={setResults} />
+        <SearchResultList results={results} />
       </div>
-      <SearchBar setResults={setResults} />
-      <SearchResultList results={results} />
     </div>
   );
 }

@@ -10,7 +10,7 @@ export default function SearchBar({ setResults }: { setResults: (results: any[])
 
     const fetchData = async (value: string) => {
         if (!value.trim()) {
-            setResults([]); // Hide results when input is empty
+            setResults([]);
             return;
         }
 
@@ -32,18 +32,18 @@ export default function SearchBar({ setResults }: { setResults: (results: any[])
         setInput(value);
 
         if (!value.trim()) {
-            setResults([]); // Hide list when clearing input
+            setResults([]);
             return;
         }
 
         setTimeout(() => {
             fetchData(value);
-        }, 300); // Debounced API call
+        }, 300);
     };
 
     return (
-        <div className="relative flex items-center justify-center gap-3 w-full max-w-md px-4 mt-4">
-            <FaSearch className="absolute left-7 text-gray-500" />
+        <div className="relative flex items-center w-full">
+            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
                 type="text"
                 placeholder="Search Event"
