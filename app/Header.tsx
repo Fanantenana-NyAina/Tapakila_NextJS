@@ -3,18 +3,35 @@
 import Link from "next/link";
 import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type MenyItem = "Home" | "Event" | "About" | "Contact"
 
 export default function Header() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [isScrolled, setIsSrolled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsSrolled(true)
+      } else {
+        setIsSrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
 
   const menuItems: MenyItem[] = ["Home", "Event", "About", "Contact"]
 
   return (
     <header className="w-full text-white">
-      <nav className="w-full flex justify-between items-center py-3 px-6 md:px-16 fixed">
+      <nav className={`w-full flex justify-between items-center py-3 px-6 md:px-16 fixed z-50 transition-colors duration-300 ${isScrolled ? 'bg-[#0a1128]' : 'bg-transparent'}`}>
         <div className="flex items-center gap-2 text-white hover:opacity-90 transition-opacity">
           <Link href="/" className="flex items-center text-white hover:opacity-90 transition-opacity">
             <Image src="/ETicket_Logo.svg" alt="logo" width={40} height={30} />
