@@ -1,7 +1,11 @@
-import { FaSearch } from "react-icons/fa";
+'use client'
+
+import { useState } from "react";
+import SearchBar from "./components/SearchBar";
+import SearchResultList from './components/SearchResultList';
 
 export default function Home() {
-  const url: string = "https://jsonplaceholder.typicode.com/";
+  const [results, setResults] = useState([])
 
   return (
     <div className="hero-section flex flex-col justify-center items-center py-16 md:py-44 z-50 h-full pb-48 bg-cover bg-center">
@@ -16,14 +20,11 @@ export default function Home() {
           excepturi impedit explicabo rem ipsa ipsam!
         </p>
       </div>
-      <div className="relative flex items-center justify-center gap-3 w-full max-w-md px-4 mt-4">
-        <FaSearch className="absolute left-7 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search Event"
-          className="w-full py-2 pl-10 pr-4 rounded-xl border-2 bg-slate-50 border-[#009de0] focus:bg-slate-100 focus:outline-[#0a1128]"
-        />
+      <div className='flex flex-col items-center justify-center w-full'>
+        
       </div>
+      <SearchBar setResults={setResults} />
+      <SearchResultList results={results} />
     </div>
   );
 }

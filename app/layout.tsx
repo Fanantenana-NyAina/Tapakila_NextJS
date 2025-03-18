@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr">
       <link rel="icon" href="/icon-removebg-preview.png" />
-      <body>
+      <body cz-shortcut-listen="true">
         <Header />
         <main>{children}</main>
       </body>

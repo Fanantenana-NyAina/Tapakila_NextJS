@@ -13,8 +13,8 @@ export default function Header() {
   const menuItems: MenyItem[] = ["Home", "Event", "About", "Contact"]
 
   return (
-    <header className="w-full bg-[#0a1128] text-white">
-      <nav className="max-w-full flex justify-between items-center py-3 px-6 md:px-16 relative">
+    <header className="w-full text-white">
+      <nav className="w-full flex justify-between items-center py-3 px-6 md:px-16 fixed">
         <div className="flex items-center gap-2 text-white hover:opacity-90 transition-opacity">
           <Link href="/" className="flex items-center text-white hover:opacity-90 transition-opacity">
             <Image src="/ETicket_Logo.svg" alt="logo" width={40} height={30} />
