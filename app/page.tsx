@@ -16,10 +16,9 @@ export default function Home() {
             Welcome to <span className="text-[#009de0]">tapakila</span>
           </h1>
           <p className="font-mono mb-4 text-xl sm:text-base md:text-lg text-white">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt
-            deleniti voluptatibus eaque cupiditate maxime tenetur fugiat
-            laboriosam ipsum aut, quisquam dolores? Perferendis delectus expedita
-            excepturi impedit explicabo rem ipsa ipsam!
+            Your go-to platform for purchasing tickets to the best events. Discover upcoming concerts, shows, 
+            and exclusive experiences—all in one place. With <span className="text-[#009de0] font-bold text-xl">Tapakila</span>, 
+            buying tickets is quick, easy, and secure. Don't miss out on your next adventure—grab your tickets now!
           </p>
         </div>
         <div className='relative w-full max-w-md'>
@@ -30,7 +29,7 @@ export default function Home() {
 
       {/*event card section*/}
       <div className="w-full h-screen">
-          <ActiveSlider />
+        <ActiveSlider />
       </div>
     </>
   );
