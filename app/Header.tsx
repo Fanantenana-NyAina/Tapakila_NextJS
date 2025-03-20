@@ -46,7 +46,7 @@ export default function Header() {
                 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] 
                 before:bg-blue-400 before:transition-all before:duration-300 before:content-[''] 
                 hover:before:w-full">
-                <Link href={item == "Home" ? "#" : `/${item}`}>
+                <Link href={`#${item.toLowerCase()}`}>
                   {item}
                 </Link>
               </li>

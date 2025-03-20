@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="hero-section flex flex-col justify-center items-center py-16 md:py-44 z-50 h-full pb-48 bg-cover bg-center">
+      <div id="home" className="hero-section flex flex-col justify-center items-center py-16 md:py-44 z-50 h-full pb-48 bg-cover bg-center">
         <div className="flex flex-col justify-center items-center text-center w-full md:w-3xl px-4 md:px-0">
           <h1 className="text-4xl sm:text-5xl font-bold font-stretch-expanded mb-3.5 text-white">
             Welcome to <span className="text-[#009de0]">tapakila</span>
@@ -34,7 +34,7 @@ export default function Home() {
       </div>
 
       {/*event card section*/}
-      <div className="w-full h-screen">
+      <div id="events" className="w-full h-screen">
         <ActiveSlider />
       </div>
     </>

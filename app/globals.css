@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  scroll-behavior: smooth;
+}
+
 .hero-section {
     background-image: linear-gradient(
         #0a1628c4,
