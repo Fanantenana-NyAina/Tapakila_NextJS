@@ -3,6 +3,7 @@
 import { useState } from "react";
 import SearchBar from "./components/SearchBar";
 import SearchResultList from './components/SearchResultList';
+import ActiveSlider from "./components/ActiveSlider";
 
 export default function Home() {
   const [results, setResults] = useState([])
@@ -28,9 +29,9 @@ export default function Home() {
       </div>
 
       {/*event card section*/}
-      <div className="w-full h-screen bg-red-400">
+      <div className="w-full h-screen">
+          <ActiveSlider />
       </div>
     </>
-
   );
 }

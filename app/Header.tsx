@@ -5,7 +5,7 @@ import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 
-type MenyItem = "Home" | "Event" | "About" | "Contact"
+type MenyItem = "Home" | "Events" | "About" | "Contact"
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -13,7 +13,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 100) {
         setIsSrolled(true)
       } else {
         setIsSrolled(false)
@@ -27,7 +27,7 @@ export default function Header() {
   }, [])
 
 
-  const menuItems: MenyItem[] = ["Home", "Event", "About", "Contact"]
+  const menuItems: MenyItem[] = ["Home", "Events", "About", "Contact"]
 
   return (
     <header className="w-full text-white">
@@ -46,7 +46,7 @@ export default function Header() {
                 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-[2px] 
                 before:bg-blue-400 before:transition-all before:duration-300 before:content-[''] 
                 hover:before:w-full">
-                <Link href={item == "Home" ? "/" : `/${item}`}>
+                <Link href={item == "Home" ? "#" : `/${item}`}>
                   {item}
                 </Link>
               </li>
