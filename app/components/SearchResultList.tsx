@@ -1,6 +1,7 @@
 import SearchResult from "./SearchResult";
+import {SearchResultType } from "../page";
 
-export default function SearchResultList({ results }: { results: any[] }) {
+export default function SearchResultList({ results }: { results: SearchResultType[] }) {
     if (results.length === 0) return null;
 
     return (

@@ -5,8 +5,14 @@ import SearchBar from "./components/SearchBar";
 import SearchResultList from './components/SearchResultList';
 import ActiveSlider from "./components/ActiveSlider";
 
+export interface SearchResultType {
+  id: number
+  name: string
+  email: string
+}
+
 export default function Home() {
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState<SearchResultType[]>([])
 
   return (
     <>
@@ -18,7 +24,7 @@ export default function Home() {
           <p className="font-mono mb-4 text-xl sm:text-base md:text-lg text-white">
             Your go-to platform for purchasing tickets to the best events. Discover upcoming concerts, shows, 
             and exclusive experiences—all in one place. With <span className="text-[#009de0] font-bold text-xl">Tapakila</span>, 
-            buying tickets is quick, easy, and secure. Don't miss out on your next adventure—grab your tickets now!
+            buying tickets is quick, easy, and secure. Don t miss out on your next adventure—grab your tickets now!
           </p>
         </div>
         <div className='relative w-full max-w-md'>
