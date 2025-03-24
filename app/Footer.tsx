@@ -25,12 +25,12 @@ export default function Footer() {
                         <h1 className='font-bold text-[1.6rem]'>Contacts</h1>
                         <div className='text-start'>
                             <div className='mail relative flex justify-center md:justify-start items-center mt-2'>
-                                <MdOutlineAttachEmail className='absolute left-0 w-5 h-5' />
-                                <p className='ml-7'>etapakila@email.com</p>
+                                <MdOutlineAttachEmail className='absolute sm:left-50 md:left-0 lg:left-0 w-5 h-5' />
+                                <p className='lg:ml-7 sm:ml-4 md:ml-5'>etapakila@email.com</p>
                             </div>
                             <div className='phone relative flex justify-center md:justify-start items-center mt-2'>
-                                <PiPhoneCall className='absolute left-0 w-5 h-5' />
-                                <p className='ml-7'>+261 33 33 333 33</p>
+                                <PiPhoneCall className='absolute lg:left-0 md:left-0 sm:left-53 w-5 h-5' />
+                                <p className='lg:ml-7 sm:ml-4 md:ml-5'>+261 33 33 333 33</p>
                             </div>
                         </div>
                     </div>
