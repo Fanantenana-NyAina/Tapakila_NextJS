@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { LuTicketCheck } from "react-icons/lu";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -56,9 +57,10 @@ export default function ActiveSlider() {
                   {item.concert}
                 </h1>
                 <p className="text-base sm:text-lg lg:text-[18px]">{item.review}</p>
-                <div className="flex justify-end items-center">
-                  <button className="w-fit px-5 py-2 bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
-                    Show
+                <div className=" hover:text-blue-950 relative flex justify-end items-center">
+                  <LuTicketCheck className="absolute transition-all right-19 w-6 h-6" />
+                  <button className="w-28 py-2 pr-3 text-end bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
+                    Reserve
                   </button>
                 </div>
               </div>

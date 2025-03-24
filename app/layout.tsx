@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./Header";
+import Footer from "./Footer";
 
 export const metadata: Metadata = {
   title: "Tapakila - Billetterie",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body cz-shortcut-listen="true">
         <Header />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
