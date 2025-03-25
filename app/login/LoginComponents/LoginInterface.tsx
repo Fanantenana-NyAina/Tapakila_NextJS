@@ -25,25 +25,22 @@ export default function LoginInterface() {
                 setSayHello(hello.substring(0, i));
                 await new Promise(res => setTimeout(res, 150));
             }
-            await new Promise(res => setTimeout(res, 300));
             displayWelcome();
         };
 
         const displayWelcome = async () => {
             for (let i = 0; i <= weclome.length; i++) {
                 setWelcomed(weclome.substring(0, i));
-                await new Promise(res => setTimeout(res, 150));
+                await new Promise(res => setTimeout(res, 50));
             }
-            await new Promise(res => setTimeout(res, 250));
             displayTapakila();
         };
 
         const displayTapakila = async () => {
             for (let i = 0; i <= tapakila.length; i++) {
                 setTapakiling(tapakila.substring(0, i));
-                await new Promise(res => setTimeout(res, 150));
+                await new Promise(res => setTimeout(res, 250));
             }
-            await new Promise(res => setTimeout(res, 200));
             displayText();
         };
 
@@ -51,7 +48,7 @@ export default function LoginInterface() {
             const combinedText = text;
             for (let i = 0; i <= combinedText.length; i++) {
                 setDisplayedText(combinedText.substring(0, i));
-                await new Promise(res => setTimeout(res, 90));
+                await new Promise(res => setTimeout(res, 50));
             }
         };
 
@@ -92,7 +89,7 @@ export default function LoginInterface() {
                     transition={{ duration: 1 }}
                 >
                     <motion.p
-                        className="font-mono font-bold text-white text-3xl text-center"
+                        className="font-mono font-bold text-white text-3xl text-start"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1.5 }}
@@ -126,39 +123,44 @@ export default function LoginInterface() {
                 </motion.div>
             </div>
 
-            <div className='w-[42%] flex flex-col justify-center items-center px-8'>
-                <h2 className='text-2xl font-bold mb-6'>LOGIN</h2>
-                <form className='w-full max-w-sm' onSubmit={handleSubmit}>
-                    <div className='mb-4'>
-                        <input
-                            type="email"
-                            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                            placeholder='Email'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='mb-4'>
-                        <input
-                            type="password"
-                            className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                            placeholder='Password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <button
-                            type='submit'
-                            className='w-full bg-[#009de0] text-white py-2 rounded-md hover:bg-[#007bb5] transition duration-300 cursor-pointer'
-                        >
-                            Sign In
-                        </button>
-                    </div>
-                </form>
-                {error && <p className='text-center bg-red-600 text-white mt-4 p-2'>{error}</p>}
+            <div className='w-[42%] flex flex-col justify-center items-center px-8 relative font-mono'>
+                <div className='top bg-[#009de0] h-full w-full absolute top-0 rounded-bl-full'>
+                </div>
+                <div className="z-50 flex flex-col items-center justify-center w-78 font-normal">
+                    <h2 className='text-4xl font-extrabold mb-6 text-white'>LOGIN</h2>
+                    <form className='w-full max-w-sm' onSubmit={handleSubmit}>
+                        <div className='mb-4'>
+                            <input
+                                type="email"
+                                className='bg-white w-full px-4 py-2 border-none rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0a1128]'
+                                placeholder='Email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className='mb-4'>
+                            <input
+                                type="password"
+                                className='bg-white w-full px-4 py-2 border-none rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0a1128]'
+                                placeholder='Password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className='flex justify-center items-center'>
+                            <button
+                                type='submit'
+                                className='w-30 bg-[#0a1128] text-white py-2 rounded-full hover:bg-green-800 transition duration-200 cursor-pointer'
+                            >
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                    {error && <p className='text-center bg-red-600 text-white mt-4 p-2'>{error}</p>}
+                </div>
+
             </div>
         </div>
     );
