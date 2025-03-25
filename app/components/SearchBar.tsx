@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import {SearchResultType } from "./Interface";
 
-export default function SearchBar({ setResults }: { setResults: (results: any[]) => void }) {
+export default function SearchBar({ setResults }: { setResults: (results: SearchResultType[]) => SearchResultType }) {
     const [input, setInput] = useState<string>("");
 
     const url: string = "https://jsonplaceholder.typicode.com/users";

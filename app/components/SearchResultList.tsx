@@ -1,5 +1,5 @@
 import SearchResult from "./SearchResult";
-import {SearchResultType } from "../page";
+import { SearchResultType } from "./Interface";
 
 export default function SearchResultList({ results }: { results: SearchResultType[] }) {
     if (results.length === 0) return null;

@@ -40,3 +40,8 @@
 .animate-fadeOut {
   animation: fadeOut 0.3s ease-in-out;
 }
+
+svg:hover {
+  transform: scale(1.1);
+  transition: 200ms ease-in-out;
+}

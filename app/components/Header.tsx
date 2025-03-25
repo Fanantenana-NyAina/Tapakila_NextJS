@@ -5,7 +5,7 @@ import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 
-type MenyItem = "Home" | "Events" | "Contact"
+type MenyItem = "Home" | "Events" | "About" | "Contact"
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -27,7 +27,7 @@ export default function Header() {
   }, [])
 
 
-  const menuItems: MenyItem[] = ["Home", "Events", "Contact"]
+  const menuItems: MenyItem[] = ["Home", "Events", "About", "Contact"]
 
   return (
     <header className="w-full text-white">
