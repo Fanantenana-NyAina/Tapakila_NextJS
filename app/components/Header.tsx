@@ -4,12 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type MenyItem = "Home" | "Events" | "About" | "Contact"
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [isScrolled, setIsSrolled] = useState<boolean>(false);
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +30,10 @@ export default function Header() {
 
 
   const menuItems: MenyItem[] = ["Home", "Events", "About", "Contact"]
+
+  const handleConnexionClick = () => {
+    router.push("/my-tapakila/app/login")
+  }
 
   return (
     <header className="w-full text-white">
@@ -54,11 +60,14 @@ export default function Header() {
           </ul>
 
           <div className="hidden md:flex gap-4">
-            <Link href="/connexion" className="px-5 py-2 border border-[#009de0] text-[#58d0fc] rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
+            <button onClick={(e) => {
+              e.preventDefault()
+              handleConnexionClick()
+            }} className="px-5 py-2 border border-[#009de0] text-[#58d0fc] rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
               Connexion
-            </Link>
+            </button>
             <Link
-              href="/creer-billetterie"
+              href="/recent_event"
               className="px-5 py-2 bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
               New coming event ✨
             </Link>
@@ -96,15 +105,18 @@ export default function Header() {
             ))}
 
             <div className="w-full flex flex-col items-center gap-4 mt-8">
-              <Link
-                href="/connexion"
+              <button
                 className="px-5 py-2 text-center text-white border border-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all"
-                onClick={() => setOpenMenu(false)}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setOpenMenu(false)
+                  handleConnexionClick()
+                }}
               >
                 Connexion
-              </Link>
+              </button>
               <Link
-                href="/creer-billetterie"
+                href="/recent_event"
                 className="px-5 py-2 bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
                 New coming event ✨
               </Link>
