@@ -32,7 +32,7 @@ export default function Header() {
   const menuItems: MenyItem[] = ["Home", "Events", "About", "Contact"]
 
   const handleConnexionClick = () => {
-    router.push("/my-tapakila/app/login")
+    router.push("/login")
   }
 
   return (
@@ -63,7 +63,7 @@ export default function Header() {
             <button onClick={(e) => {
               e.preventDefault()
               handleConnexionClick()
-            }} className="px-5 py-2 border border-[#009de0] text-[#58d0fc] rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
+            }} className="cursor-pointer px-5 py-2 border border-[#009de0] text-[#58d0fc] rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
               Connexion
             </button>
             <Link
