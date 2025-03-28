@@ -1,84 +1,125 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LuTicketCheck } from "react-icons/lu";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
-
 import { FreeMode, Pagination } from "swiper/modules";
-import { data } from "../mockData";
-// import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
 
 export default function ActiveSlider() {
-  // const backendURL: string = "";
+  const router = useRouter();
+  const [events, setEvents] = useState<[]>([]);
+  const swiperRef = useRef(null);
 
-//   useEffect(() => {
-//     const res = await fetch(backendURL, {
-//       method: 'POST',
-//     }
-//     )
-// }, [])
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await fetch("http://localhost:1818/events", { method: 'GET' });
+        if (!res.ok) {
+          throw new Error("Failed to fetch events");
+        }
+        const data = await res.json();
+        setEvents(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-return (
-  <div className="flex items-center justify-center flex-col h-full w-full bg-[#0a1128]">
-    <div className="text-white flex flex-col justify-center items-center text-center w-full max-w-4xl px-4 mt-6 mb-5">
-      <h1 className="font-bold text-2xl sm:text-3xl lg:text-4xl mb-2 leading-tight">
-        Upcoming <span className="text-[#009de0]">Events</span> <span> - </span>
-        <span className="underline underline-offset-2">Don’t Miss Out!</span>
-      </h1>
-      <p className="font-mono mb-4 text-xl sm:text-base md:text-lg text-white">
-        The biggest events are just around the corner! Get ready for unforgettable moments,
-        amazing performances, and an electrifying atmosphere. Secure your ticket now
-        and be part of the excitement!
-      </p>
-    </div>
+    fetchEvents();
+  }, []);
 
-    <Swiper
-      breakpoints={{
-        340: {
-          slidesPerView: 2,
-          spaceBetween: 25,
-        },
-        700: {
-          slidesPerView: 3,
-          spaceBetween: 15,
-        },
-      }}
-      freeMode={true}
-      pagination={{
-        clickable: true,
-      }}
-      modules={[FreeMode, Pagination]}
-      className="max-w-[90%] lg:max-w-[80%]"
-    >
-      {data.map((item) => (
-        <SwiperSlide key={item.id} className="mx-4 sm:mx-6 lg:mx-8">
-          <div
-            className="flex flex-col gap-6 mb-8 sm:mb-10 lg:mb-20 group relative shadow-lg text-white 
-            rounded-xl px-6 py-8 h-auto w-full max-w-[300px] lg:h-[400px] lg:w-[350px] overflow-hidden cursor-pointer"
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${item.img})` }}
-            />
-            <div className="absolute inset-0 bg-black opacity-10 group-hover:opacity-50" />
-            <div className="relative flex flex-col gap-3">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl bg-[#009de0b0] font-bold h-13 flex justify-start items-center pl-4 w-full sm:w-56 lg:w-60 rounded-3xl">
-                {item.concert}
-              </h1>
-              <p className="text-base sm:text-lg lg:text-[18px]">{item.review}</p>
-              <div className=" hover:text-blue-950 relative flex justify-end items-center">
-                <LuTicketCheck className="absolute transition-all right-19 w-6 h-6" />
-                <button className="w-28 py-2 pr-3 text-end bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
-                  Reserve
-                </button>
+  const handleNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+
+  const handlePrev = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center flex-col h-full w-full bg-[#0a1128] py-12">
+      {/* Header Section */}
+      <div className="text-white text-center max-w-4xl px-4 mt-6 mb-5">
+        <h1 className="font-bold text-3xl lg:text-4xl mb-2">
+          Upcoming <span className="text-[#009de0]">Events</span> -{" "}
+          <span className="underline">Don’t Miss Out!</span>
+        </h1>
+        <p className="text-lg text-white">
+          Get ready for unforgettable moments, amazing performances, and an electrifying atmosphere.
+          Secure your ticket now and be part of the excitement!
+        </p>
+      </div>
+
+      {/* Events Slider */}
+      <div className="relative w-full max-w-6xl">
+        <Swiper
+          ref={swiperRef}
+          breakpoints={{
+            340: { slidesPerView: 1, spaceBetween: 20 },
+            640: { slidesPerView: 2, spaceBetween: 25 },
+            1024: { slidesPerView: 3, spaceBetween: 30 },
+          }}
+          freeMode={true}
+          pagination={{ clickable: true }}
+          modules={[FreeMode, Pagination]}
+          className="w-full px-12"
+        >
+          {events.map((event) => (
+            <SwiperSlide key={event.id}>
+              <div className="flex flex-col h-full mx-2">
+                <div
+                  onClick={() => router.push(`/displayEvent/${event.id}`)}
+                  className="group relative flex-1 shadow-lg text-white rounded-xl overflow-hidden cursor-pointer min-h-[400px]">
+                  {/* Event Image */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                    style={{ backgroundImage: `url(${event.img})` }}
+                  />
+                  <div className="absolute inset-0 bg-black/30" />
+
+                  {/* Event Content */}
+                  <div className="relative h-full flex flex-col p-6">
+                    <div className="flex-grow flex flex-col justify-center items-start">
+                      <h2 className="text-xl md:text-2xl font-bold mb-3 bg-[#009de0b0] h-12 w-fit px-4 py-1 rounded-2xl">{event.name}</h2>
+                      <p className="text-xl md:text-base">{event.event_description}</p>
+                    </div>
+
+                    {/* Button */}
+                    <div className="absolute bottom-0 top-80 right-6">
+                      <button
+                        className="cursor-pointer flex items-center gap-2 bg-[#009de0] text-white py-2 px-4 rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all"
+                      >
+                        <span>About it</span>
+                        <LuTicketCheck className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </SwiperSlide>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      ))}
-    </Swiper>
-  </div>
-);
-};
+        {/* Navigation Arrows */}
+        <button
+          onClick={handlePrev}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 bg-[#009de0] text-white rounded-full flex items-center justify-center hover:bg-white hover:text-blue-950 transition-all"
+        >
+          <IoIosArrowRoundBack size={24} />
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 bg-[#009de0] text-white rounded-full flex items-center justify-center hover:bg-white hover:text-blue-950 transition-all"
+        >
+          <IoIosArrowRoundForward size={24} />
+        </button>
+      </div>
+    </div>
+  );
+}

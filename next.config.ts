@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Optionnel : Redirection pour les anciennes versions
+  async rewrites() {
+    return [
+      {
+        source: '/displayEvent/eventId',
+        destination: '/displayEvent/[eventId]'
+      }
+    ]
+  }
 };
 
 export default nextConfig;

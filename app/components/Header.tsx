@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <header className="w-full text-white">
-      <nav className={`w-full flex justify-between items-center py-3 px-6 md:px-16 fixed z-50 transition-colors duration-300 ${isScrolled ? 'bg-[#0a1128]' : 'bg-transparent'}`}>
+      <nav className={`h-14 w-full flex justify-between items-center py-3 px-6 md:px-16 fixed z-50 transition-colors duration-300 ${isScrolled ? 'bg-[#0a1128]' : 'bg-transparent'}`}>
         <div className="flex items-center gap-2 text-white hover:opacity-90 transition-opacity">
           <Link href="/" className="flex items-center text-white hover:opacity-90 transition-opacity">
             <Image src="/ETicket_Logo.svg" alt="logo" width={40} height={30} />
@@ -66,11 +66,7 @@ export default function Header() {
             }} className="cursor-pointer px-5 py-2 border border-[#009de0] text-[#58d0fc] rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
               Connexion
             </button>
-            <Link
-              href="/recent_event"
-              className="px-5 py-2 bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
-              New coming event ✨
-            </Link>
+
           </div>
 
           <IoMenuSharp className="size-8 xl:hidden block cursor-pointer text-white" onClick={() => setOpenMenu(!openMenu)} />
@@ -115,11 +111,6 @@ export default function Header() {
               >
                 Connexion
               </button>
-              <Link
-                href="/recent_event"
-                className="px-5 py-2 bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
-                New coming event ✨
-              </Link>
             </div>
           </div>
         </nav>

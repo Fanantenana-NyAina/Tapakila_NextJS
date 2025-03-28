@@ -7,7 +7,7 @@ import {SearchResultType } from "./Interface";
 export default function SearchBar({ setResults }: { setResults: (results: SearchResultType[]) => SearchResultType }) {
     const [input, setInput] = useState<string>("");
 
-    const url: string = "https://jsonplaceholder.typicode.com/users";
+    const backendURL: string = "http://localhost:1818/events";
 
     const fetchData = async (value: string) => {
         if (!value.trim()) {
@@ -16,11 +16,11 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
         }
 
         try {
-            const response = await fetch(url);
+            const response = await fetch(backendURL, {method: 'GET'});
             const json = await response.json();
 
-            const res = json.filter((data: { name: string }) =>
-                data.name.toLowerCase().includes(value.toLowerCase())
+            const res = json.filter((data: { categorie: string }) =>
+                data.categorie.toLowerCase().includes(value.toLowerCase())
             );
 
             setResults(res);
@@ -47,7 +47,7 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
                 type="text"
-                placeholder="Search Event"
+                placeholder="search your categorie"
                 className="w-full py-2 pl-10 pr-4 rounded-xl border-2 bg-slate-50 border-[#009de0] focus:bg-slate-100 focus:outline-[#0a1128]"
                 value={input}
                 onChange={(e) => handleChange(e.target.value)}
