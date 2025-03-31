@@ -1,12 +1,11 @@
 'use client'
 
-import { useState } from "react";
-import SearchBar from "./SearchBar";
-import SearchResultList from "./SearchResultList";
+// import { useState } from "react";
 import ActiveSlider from "./ActiveSlider";
 import Header from "./Header";
 import Footer from "./Footer";
 import About from "./About";
+import { useRouter } from "next/navigation";
 
 export interface SearchResultType {
   id: number
@@ -15,7 +14,12 @@ export interface SearchResultType {
 }
 
 export default function Page() {
-  const [results, setResults] = useState<SearchResultType[]>([])
+  // const [results, setResults] = useState<SearchResultType[]>([])
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push("/DisplayEventList")
+  }
 
   return (
     <>
@@ -32,9 +36,13 @@ export default function Page() {
             buying tickets is quick, easy, and secure. Don t miss out on your next adventure—grab your tickets now!
           </p>
         </div>
-        <div className='relative w-full max-w-md'>
-          <SearchBar setResults={setResults} />
-          <SearchResultList results={results} />
+        <div className='flex justify-center items-center w-full max-w-md h-14'>
+          <button onClick={(e) => {
+            e.preventDefault()
+            handleClick()
+          }} className="cursor-pointer px-5 border h-14 border-[#009de0] bg-[#009de0] text-white rounded-full font-medium hover:bg-white hover:text-blue-950 hover:border-none transition-all">
+            All Coming events <span className="">✨</span>
+          </button>
         </div>
       </div>
 
@@ -44,7 +52,7 @@ export default function Page() {
       </div>
 
       {/*About section*/}
-      <div id="About" className="w-full h-screen">
+      <div id="about" className="w-full h-screen">
         <About />
       </div>
       <Footer />

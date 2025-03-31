@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import {SearchResultType } from "./Interface";
+import { SearchResultType } from "./Interface";
 
 export default function SearchBar({ setResults }: { setResults: (results: SearchResultType[]) => SearchResultType }) {
     const [input, setInput] = useState<string>("");
@@ -16,7 +16,7 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
         }
 
         try {
-            const response = await fetch(backendURL, {method: 'GET'});
+            const response = await fetch(backendURL, { method: 'GET' });
             const json = await response.json();
 
             const res = json.filter((data: { categorie: string }) =>
@@ -47,8 +47,8 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
                 type="text"
-                placeholder="search your categorie"
-                className="w-full py-2 pl-10 pr-4 rounded-xl border-2 bg-slate-50 border-[#009de0] focus:bg-slate-100 focus:outline-[#0a1128]"
+                placeholder="Searching for an event ?"
+                className="w-full pl-10 pr-4 py-2 rounded-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all"
                 value={input}
                 onChange={(e) => handleChange(e.target.value)}
             />

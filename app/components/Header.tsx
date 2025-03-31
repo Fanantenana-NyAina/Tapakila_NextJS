@@ -5,6 +5,7 @@ import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { FiUser } from "react-icons/fi"
 
 type MenyItem = "Home" | "Events" | "About" | "Contact"
 
@@ -60,10 +61,11 @@ export default function Header() {
           </ul>
 
           <div className="hidden md:flex gap-4">
-            <button onClick={(e) => {
-              e.preventDefault()
-              handleConnexionClick()
-            }} className="cursor-pointer px-5 py-2 border border-[#009de0] text-[#58d0fc] rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all">
+            <button
+              onClick={handleConnexionClick}
+              className="cursor-pointer flex items-center gap-2 px-4 py-2 text-center text-white border border-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              <FiUser size={18} />
               Connexion
             </button>
 
@@ -89,7 +91,7 @@ export default function Header() {
             {menuItems.map((item) => (
               <Link
                 key={item}
-                href={`/${item.toLowerCase().replace(" ", "-").replace("à", "a")}`}
+                href={`#${item.toLowerCase()}`}
                 className="w-full text-center py-4 text-xl relative cursor-pointer transition-all 
                   before:absolute before:bottom-0 before:left-1/4 before:w-0 before:h-[2px] 
                   before:bg-blue-400 before:transition-all before:duration-300 before:content-[''] 
@@ -101,16 +103,13 @@ export default function Header() {
             ))}
 
             <div className="w-full flex flex-col items-center gap-4 mt-8">
-              <button
-                className="px-5 py-2 text-center text-white border border-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all"
-                onClick={(e) => {
-                  e.preventDefault()
-                  setOpenMenu(false)
-                  handleConnexionClick()
-                }}
-              >
-                Connexion
-              </button>
+            <button
+                        onClick={handleConnexionClick}
+                        className="cursor-pointer flex items-center gap-2 px-4 py-2 text-center text-white border border-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all focus:outline-none focus:ring-2 focus:ring-white"
+                    >
+                        <FiUser size={18} />
+                        Connexion
+                    </button>
             </div>
           </div>
         </nav>

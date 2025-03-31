@@ -98,26 +98,31 @@ export default function ShowEvent() {
       </div>
 
       <div className='flex p-8 max-w-4xl mx-auto w-full'>
-        <div className='space-y-8'>
-          <p className='text-gray-700 text-lg leading-relaxed italic'>
-            "{event.event_description}"
-          </p>
+        <div className='flex md:flex-row-reverse gap-7 space-y-8'>
+          <div className='w-1/2'>
+            <p className='text-gray-700 text-lg leading-relaxed italic md:w-xl'>
+              "{event.event_description}"
+            </p>
 
-          <div className='flex items-center gap-2'>
-            <svg className="w-5 h-5 text-[#009de0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span className='text-lg font-medium'>{event.location}</span>
+            <div className='flex items-center gap-2'>
+              <svg className="w-5 h-5 text-[#009de0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className='text-lg font-medium'>{event.location}</span>
+            </div>
           </div>
 
-          <button
-            onClick={() => router.push("/login")}
-            className="cursor-pointer mt-8 flex items-center gap-3 bg-[#0a1128] hover:bg-green-800 text-white py-4 px-8 
+
+          <div className='w-1/2'>
+            <button
+              onClick={() => router.push("/login")}
+              className="cursor-pointer mt-8 flex items-center gap-3 bg-[#0a1128] hover:bg-green-800 text-white py-4 px-8 
             rounded-full font-medium transition-all duration-300 group">
-            <FaCartArrowDown className="w-5 h-5 group-hover:scale-110 transition-transform" />
-            <span className='tracking-wider'>RESERVE YOUR PLACE</span>
-          </button>
+              <FaCartArrowDown className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span className='tracking-wider'>RESERVE YOUR PLACE</span>
+            </button></div>
+
         </div>
       </div>
     </div>

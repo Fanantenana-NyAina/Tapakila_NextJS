@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Footer() {
     return (
-        <footer className='bg-[#161e2b] w-full h-fit text-white font-mono'>
+        <footer id='#contact' className='bg-[#161e2b] w-full h-fit text-white font-mono'>
             <div className='container mx-auto px-4 py-8'>
                 <div className='flex flex-col md:flex-row justify-between items-center gap-8'>
                     {/* Logo and Bio */}
