@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 interface Event {
     id: string
     name: string
-    categorie?: string
+    categorie: string
     date_of_event: string
     location: string
     event_description: string

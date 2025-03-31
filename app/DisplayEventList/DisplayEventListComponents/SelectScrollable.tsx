@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 
 interface Event {
     id: string
-    categorie?: string
+    categorie: string
 }
 
 interface SelectScrollableProps {
