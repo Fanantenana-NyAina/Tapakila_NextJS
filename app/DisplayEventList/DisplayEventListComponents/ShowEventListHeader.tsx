@@ -6,12 +6,14 @@ import { FiUser } from "react-icons/fi"
 import SearchBar from '@/app/components/SearchBar'
 import SelectScrollable from './SelectScrollableCategorie'
 import { DatePickerWithRange } from './DatePickerWithRange'
+import { DateRange } from 'react-day-picker'
 
 interface ShowEventListHeaderProps {
     onCategoryChange: (category: string) => void
+    onDateRangeChange: (range: DateRange | undefined) => void
 }
 
-export default function ShowEventListHeader({ onCategoryChange }: ShowEventListHeaderProps) {
+export default function ShowEventListHeader({ onCategoryChange, onDateRangeChange }: ShowEventListHeaderProps) {
     const router = useRouter()
     const [searchQuery, setSearchQuery] = useState('')
     const [showMobileSearch, setShowMobileSearch] = useState(false)
@@ -46,7 +48,7 @@ export default function ShowEventListHeader({ onCategoryChange }: ShowEventListH
                     <div className='w-full flex justify-center items-center'>
                         <SearchBar />
                         <SelectScrollable onCategoryChange={onCategoryChange} />
-                        <DatePickerWithRange />
+                        <DatePickerWithRange onDateRangeChange={onDateRangeChange} />
 
                     </div>
                 </div>

@@ -5,10 +5,11 @@ import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 import { FaCartArrowDown } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
+import { Event } from '@/app/DisplayEventList/DisplayEventListComponents/ShowEventListCard';
 
 export default function ShowEvent() {
   const { eventId } = useParams();
-  const [event, setEvent] = useState(null)
+  const [event, setEvent] = useState<Event>(null)
   const [error, setError] = useState("")
   const router = useRouter()
 
@@ -68,7 +69,7 @@ export default function ShowEvent() {
         <div className="relative w-full lg:w-1/2 h-[400px]">
           <Image
             src='/cardImage/pexels-johannes-havn-835931-2417730.jpg'
-            alt={event.name}
+            alt={event.title}
             fill
             className='object-cover rounded-xl shadow-2xl'
             priority
@@ -76,7 +77,7 @@ export default function ShowEvent() {
         </div>
 
         <div className='text-white w-full lg:w-1/2 space-y-6'>
-          <h1 className='text-4xl font-bold tracking-tight'>{event.name}</h1>
+          <h1 className='text-4xl font-bold tracking-tight'>{event.title}</h1>
 
           <div className="space-y-4">
             <div className='flex items-start gap-3'>
@@ -101,7 +102,7 @@ export default function ShowEvent() {
         <div className='flex md:flex-row-reverse gap-7 space-y-8'>
           <div className='w-1/2'>
             <p className='text-gray-700 text-lg leading-relaxed italic md:w-xl'>
-              "{event.event_description}"
+              "{event.description}"
             </p>
 
             <div className='flex items-center gap-2'>

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
 export default function LoginInterface() {
-    const backendURL = "http://localhost:1818";
+    const backendURL = "http://localhost:1818/auth/login";
     const hello = "Hello👋";
     const weclome = "Welcome to ";
     const tapakila = "Tapakila";

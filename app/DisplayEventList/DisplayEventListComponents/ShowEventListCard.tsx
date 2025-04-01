@@ -2,23 +2,25 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { DateRange } from 'react-day-picker'
 
-interface Event {
+export interface Event {
     id: string
-    name: string
+    title: string
     categorie: string
     date_of_event: string
     location: string
-    event_description: string
+    description: string
     available_of_ticket: string
     imageUrl?: string
 }
 
 interface ShowEventListCardProps {
     selectedCategory?: string
+    dateRange?: DateRange
 }
 
-export default function ShowEventListCard({ selectedCategory = 'all' }: ShowEventListCardProps) {
+export default function ShowEventListCard({ selectedCategory = 'all', dateRange }: ShowEventListCardProps) {
     const [events, setEvents] = useState<Event[]>([])
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
     const [loading, setLoading] = useState(true)
@@ -28,7 +30,9 @@ export default function ShowEventListCard({ selectedCategory = 'all' }: ShowEven
         const fetchEvents = async () => {
             try {
                 const res = await fetch("http://localhost:1818/events")
+
                 if (!res.ok) throw new Error("Failed to fetch events")
+
                 const data = await res.json()
                 setEvents(data)
             } catch (error) {
@@ -37,19 +41,44 @@ export default function ShowEventListCard({ selectedCategory = 'all' }: ShowEven
                 setLoading(false)
             }
         }
+
         fetchEvents()
     }, [])
 
+    // useEffect(() => {
+    //     setFilteredEvents(
+    //         selectedCategory === 'all'
+    //             ? events
+    //             : events.filter(event => {
+    //                 const category = event.categorie.toLowerCase();
+    //                 return category === selectedCategory.toLowerCase();
+    //             })
+    //     );
+    // }, [selectedCategory, events]);
+
     useEffect(() => {
-        setFilteredEvents(
-            selectedCategory === 'all'
-                ? events
-                : events.filter(event => {
-                    const category = event.categorie.toLowerCase();
-                    return category === selectedCategory.toLowerCase();
-                })
-        );
-    }, [selectedCategory, events]);
+        const filterEvent = () => {
+            const filtering = events.filter(event => {
+                const categoryMatch = selectedCategory === 'all' || event.categorie.toLocaleLowerCase() === selectedCategory.toLocaleLowerCase()
+
+                let dateMatch = true;
+                if (dateRange?.from && dateRange?.to) {
+                    const eventDate = new Date(event.date_of_event)
+
+                    if (eventDate < dateRange.from || eventDate > dateRange.to) {
+                        dateMatch = false
+                    }
+                }
+
+                return categoryMatch && dateMatch
+
+            })
+
+            return filtering
+        }
+
+        setFilteredEvents(filterEvent())
+    }, [dateRange, selectedCategory, events])
 
     if (loading) {
         return (
@@ -83,7 +112,7 @@ export default function ShowEventListCard({ selectedCategory = 'all' }: ShowEven
                         <div className="relative h-48 w-full">
                             <Image
                                 src={event.imageUrl || '/cardImage/pexels-johannes-havn-835931-2417730.jpg'}
-                                alt={event.name}
+                                alt={event.title}
                                 fill
                                 className="object-cover"
                                 priority
@@ -97,8 +126,8 @@ export default function ShowEventListCard({ selectedCategory = 'all' }: ShowEven
                         </div>
 
                         <div className="p-6">
-                            <h2 className="text-xl font-bold mb-2 line-clamp-2">{event.name}</h2>
-                            <p className="text-gray-700 mb-6 line-clamp-3">{event.event_description}</p>
+                            <h2 className="text-xl font-bold mb-2 line-clamp-2">{event.title}</h2>
+                            <p className="text-gray-700 mb-6 line-clamp-3">{event.description}</p>
                             <button
                                 className="px-4 py-2 bg-[#009de0] text-white rounded-lg hover:bg-green-900 transition-colors"
                                 onClick={() => router.push("/login")}
