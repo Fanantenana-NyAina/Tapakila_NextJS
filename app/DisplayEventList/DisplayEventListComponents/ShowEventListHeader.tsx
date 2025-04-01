@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation'
 import { IoArrowBack, IoSearch, IoClose } from "react-icons/io5"
 import { FiUser } from "react-icons/fi"
 import SearchBar from '@/app/components/SearchBar'
-import SelectScrollable from './SelectScrollable'
+import SelectScrollable from './SelectScrollableCategorie'
+import { DatePickerWithRange } from './DatePickerWithRange'
 
 interface ShowEventListHeaderProps {
     onCategoryChange: (category: string) => void
@@ -45,6 +46,8 @@ export default function ShowEventListHeader({ onCategoryChange }: ShowEventListH
                     <div className='w-full flex justify-center items-center'>
                         <SearchBar />
                         <SelectScrollable onCategoryChange={onCategoryChange} />
+                        <DatePickerWithRange />
+
                     </div>
                 </div>
 

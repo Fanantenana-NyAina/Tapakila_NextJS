@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiUser } from "react-icons/fi"
 
-type MenyItem = "Home" | "Events" | "About" | "Contact"
+type MenyItem = "Home" | "Events" | "Contact"
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export default function Header() {
   }, [])
 
 
-  const menuItems: MenyItem[] = ["Home", "Events", "About", "Contact"]
+  const menuItems: MenyItem[] = ["Home", "Events", "Contact"]
 
   const handleConnexionClick = () => {
     router.push("/login")
@@ -103,13 +103,13 @@ export default function Header() {
             ))}
 
             <div className="w-full flex flex-col items-center gap-4 mt-8">
-            <button
-                        onClick={handleConnexionClick}
-                        className="cursor-pointer flex items-center gap-2 px-4 py-2 text-center text-white border border-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all focus:outline-none focus:ring-2 focus:ring-white"
-                    >
-                        <FiUser size={18} />
-                        Connexion
-                    </button>
+              <button
+                onClick={handleConnexionClick}
+                className="cursor-pointer flex items-center gap-2 px-4 py-2 text-center text-white border border-white rounded-full font-medium hover:bg-white hover:text-blue-950 transition-all focus:outline-none focus:ring-2 focus:ring-white"
+              >
+                <FiUser size={18} />
+                Connexion
+              </button>
             </div>
           </div>
         </nav>

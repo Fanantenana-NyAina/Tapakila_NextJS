@@ -4,7 +4,6 @@
 import ActiveSlider from "./ActiveSlider";
 import Header from "./Header";
 import Footer from "./Footer";
-import About from "./About";
 import { useRouter } from "next/navigation";
 
 export interface SearchResultType {
@@ -50,11 +49,8 @@ export default function Page() {
       <div id="events" className="w-full h-screen">
         <ActiveSlider />
       </div>
-
-      {/*About section*/}
-      <div id="about" className="w-full h-screen">
-        <About />
-      </div>
+      
+      {/* footer section */}
       <Footer />
     </>
   );
