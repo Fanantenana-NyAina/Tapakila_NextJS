@@ -10,7 +10,7 @@ export default function ShowEventsList() {
     const [selectedLocation, setSelectedLocation] = useState<string>("everywhere")
 
     return (
-        <div>
+        <div className='bg-amber-50'>
             <ShowEventListHeader
                 onCategoryChange={setSelectedCategory}
                 onDateRangeChange={setDateRange}
