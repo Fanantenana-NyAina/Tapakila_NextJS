@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 import { FaCartArrowDown } from "react-icons/fa";
+import { IoArrowBack } from "react-icons/io5"
 import { Event } from '@/app/DisplayEventList/DisplayEventListComponents/ShowEventListCard';
 
 interface ticketItem {
@@ -16,6 +17,10 @@ export default function ShowEvent() {
   const [event, setEvent] = useState<Event>(null)
   const [error, setError] = useState("")
   const router = useRouter()
+
+  const handleBackClick = () => {
+    router.back()
+  }
 
   const formatToLongDate = (dateString: Date) => {
     const date = new Date(dateString);
@@ -89,13 +94,20 @@ export default function ShowEvent() {
 
   return (
     <div className='min-h-screen flex flex-col bg-white'>
-      <div className='flex-1 bg-[#0a1128] flex flex-col lg:flex-row items-center p-8 gap-8'>
+      <div className='relative flex-1 bg-[#0a1128] flex flex-col lg:flex-row items-center p-8 gap-8 h-fit'>
+        <button
+          onClick={handleBackClick}
+          aria-label="Back"
+          className="absolute right-12 top-8 cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors"
+        >
+          <IoArrowBack size={24} className="text-white hover:text-[#009de0]" />
+        </button>
         <div className="relative w-full lg:w-1/2 h-[400px]">
           <Image
             src='/cardImage/pexels-johannes-havn-835931-2417730.jpg'
             alt={event.title}
             fill
-            className='object-cover rounded-xl shadow-2xl'
+            className='object-cover rounded-4xl shadow-2xl'
             priority
           />
         </div>
@@ -123,9 +135,9 @@ export default function ShowEvent() {
       </div>
 
       <div className='flex p-8 w-full justify-center items-center'>
-        <div className='flex md:flex-row-reverse gap-44 space-y-8'>
-          <div className='w-[50%]'>
-            <p className='text-gray-700 text-lg leading-relaxed italic md:w-xl'>
+        <div className='flex flex-col justify-center items-center w-full md:flex-row-reverse md:gap-44 space-y-8'>
+          <div className='md:w-[50%]'>
+            <p className='text-gray-700 text-lg leading-relaxed italic'>
               ```{event.description}```
             </p>
 
@@ -139,7 +151,7 @@ export default function ShowEvent() {
           </div>
 
 
-          <div className='w-[50%] flex flex-col gap-2'>
+          <div className='sm:w-full md:w-[50%] flex flex-col gap-2'>
             <h2 className='font-bold text-xl underline'>Available Tickets:</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full border border-gray-300 rounded-lg">
