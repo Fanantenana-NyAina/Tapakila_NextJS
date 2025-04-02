@@ -49,11 +49,14 @@ export default function Page() {
         <ActiveSlider />
       </div>
 
-      <div id="About" className="w-full h-screen">
+      <div id="about" className="w-full h-screen">
         <About />
       </div>
+
       {/* footer section */}
-      <Footer />
+      <div id="contact">
+        <Footer />
+      </div>
     </>
   );
 }
