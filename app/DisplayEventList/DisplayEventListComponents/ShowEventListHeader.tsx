@@ -8,6 +8,8 @@ import SelectScrollable from './SelectScrollableCategorie'
 import { DatePickerWithRange } from './DatePickerWithRange'
 import { DateRange } from 'react-day-picker'
 import SelectScrollableLocation from './SelectScrollableLocation'
+import { SearchResultType } from '@/app/components/Interface'
+import SearchResultList from '@/app/components/SearchResultList'
 
 interface ShowEventListHeaderProps {
     onCategoryChange: (category: string) => void
@@ -17,8 +19,8 @@ interface ShowEventListHeaderProps {
 
 export default function ShowEventListHeader({ onCategoryChange, onDateRangeChange, onLocationChange }: ShowEventListHeaderProps) {
     const router = useRouter()
-    const [searchQuery, setSearchQuery] = useState('')
     const [showMobileSearch, setShowMobileSearch] = useState(false)
+    const [results, setResults] = useState<SearchResultType[]>([])
 
     const handleConnexionClick = () => {
         router.push("/login")
@@ -48,7 +50,10 @@ export default function ShowEventListHeader({ onCategoryChange, onDateRangeChang
                         <IoSearch className="text-gray-400" size={18} />
                     </div>
                     <div className='w-full flex justify-center items-center'>
-                        <SearchBar />
+                        <div className="flex-1 relative">
+                            <SearchBar setResults={setResults} />
+                            <SearchResultList results={results} />
+                        </div>
                         <SelectScrollable onCategoryChange={onCategoryChange} />
                         <DatePickerWithRange onDateRangeChange={onDateRangeChange} />
                         <SelectScrollableLocation onLocationChange={onLocationChange} />
@@ -90,14 +95,10 @@ export default function ShowEventListHeader({ onCategoryChange, onDateRangeChang
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <IoSearch className="text-gray-400" size={18} />
                         </div>
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Rechercher..."
-                            className="w-full pl-10 pr-4 py-2 rounded-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0]"
-                            autoFocus
-                        />
+                        <div className="flex-1 relative">
+                            <SearchBar setResults={setResults} />
+                            <SearchResultList results={results} />
+                        </div>
                     </div>
                     <div className='flex justify-center items-center mt-4'>
                         <SelectScrollable onCategoryChange={onCategoryChange} />

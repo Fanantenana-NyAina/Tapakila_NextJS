@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { SearchResultType } from "./Interface";
 
-export default function SearchBar({ setResults }: { setResults: (results: SearchResultType[]) => SearchResultType }) {
+interface SearchBarProps {
+    setResults: (results: SearchResultType[]) => void;
+}
+
+export default function SearchBar({ setResults }: SearchBarProps) {
     const [input, setInput] = useState<string>("");
 
     const backendURL: string = "http://localhost:1818/events";
@@ -19,7 +23,7 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
             const response = await fetch(backendURL, { method: 'GET' });
             const json = await response.json();
 
-            const res = json.filter((data: { categorie: string }) =>
+            const res = json.filter((data: SearchResultType) =>
                 data.categorie.toLowerCase().includes(value.toLowerCase())
             );
 

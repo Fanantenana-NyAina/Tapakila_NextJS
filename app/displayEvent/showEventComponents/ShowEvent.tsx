@@ -102,7 +102,7 @@ export default function ShowEvent() {
         <div className='flex md:flex-row-reverse gap-7 space-y-8'>
           <div className='w-1/2'>
             <p className='text-gray-700 text-lg leading-relaxed italic md:w-xl'>
-              "{event.description}"
+              ```{event.description}```
             </p>
 
             <div className='flex items-center gap-2'>

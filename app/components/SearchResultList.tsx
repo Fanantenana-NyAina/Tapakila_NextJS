@@ -7,8 +7,8 @@ export default function SearchResultList({ results }: { results: SearchResultTyp
     return (
         <div className="absolute top-full left-0 right-0 bg-white max-h-44 overflow-y-auto 
                        border border-[#009de0]/30 shadow-lg rounded-lg mt-2 z-10">
-            {results.map((result, id) => (
-                <SearchResult key={id} result={result} />
+            {results.map((result, i) => (
+                <SearchResult key={i} result={result} />
             ))}
         </div>
     );

@@ -8,31 +8,40 @@
 }
 
 .hero-section {
-    background-image: linear-gradient(
-        #0a1628c4,
-        rgba(36, 14, 83, 0.603)
-      ), 
-      url('./assets/buyTicket.webp');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-  }
+  background-image: linear-gradient(#0a1628c4,
+      rgba(36, 14, 83, 0.603)),
+    url('./assets/buyTicket.webp');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.about-section {
+  background-image: linear-gradient(#0a1628c4,
+      rgba(23, 9, 53, 0.603)),
+    url('./assets/pexels-wendywei-1387174.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
 
 @keyframes fadeIn {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
+
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 @keyframes fadeOut {
   0% {
-      opacity: 1;
+    opacity: 1;
   }
+
   100% {
-      opacity: 0;
+    opacity: 0;
   }
 }
 
@@ -160,6 +169,7 @@ svg:hover {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
