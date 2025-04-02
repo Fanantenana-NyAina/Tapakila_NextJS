@@ -46,8 +46,8 @@ export default function SelectScrollableLocation({ onLocationChange }: SelectScr
 
     return (
         <Select onValueChange={onLocationChange}>
-            <SelectTrigger className="h-80 rounded-r-none rounded-l-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all">
-                <SelectValue placeholder="location" />
+            <SelectTrigger className="h-80 rounded-l-none rounded-r-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all">
+                <SelectValue placeholder="Location" />
             </SelectTrigger>
             <SelectContent>
                 <SelectItem value="everywhere">All location</SelectItem>
