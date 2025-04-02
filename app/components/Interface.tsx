@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 export interface SearchResultType {
   id: number
   name: string
-  email: string
+  categorie: string
+  location: string
 }
 
 export default function Page() {

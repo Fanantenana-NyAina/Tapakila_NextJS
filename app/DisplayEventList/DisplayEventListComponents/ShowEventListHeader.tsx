@@ -99,6 +99,12 @@ export default function ShowEventListHeader({ onCategoryChange, onDateRangeChang
                             autoFocus
                         />
                     </div>
+                    <div className='flex justify-center items-center mt-4'>
+                        <SelectScrollable onCategoryChange={onCategoryChange} />
+                        <DatePickerWithRange onDateRangeChange={onDateRangeChange} />
+                        <SelectScrollableLocation onLocationChange={onLocationChange} />
+                    </div>
+
                 </div>
             )}
         </header>
