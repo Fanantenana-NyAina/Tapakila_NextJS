@@ -17,7 +17,7 @@ export default function ShowEvent() {
   const [error, setError] = useState("")
   const router = useRouter()
 
-  const formatToLongDate = (dateString) => {
+  const formatToLongDate = (dateString: Date) => {
     const date = new Date(dateString);
     const options = {
       weekday: 'long',
@@ -53,7 +53,7 @@ export default function ShowEvent() {
           location: data[0].location,
         };
 
-        const tickets = data.map((item: ticketItem) => ({
+        const tickets: ticketItem = data.map((item: ticketItem) => ({
           type_of_ticket: item.type_of_ticket,
           price: item.price,
         }));
