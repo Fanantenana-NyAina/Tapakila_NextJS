@@ -48,7 +48,7 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
             <input
                 type="text"
                 placeholder="Searching for an event ?"
-                className="w-full pl-10 pr-4 py-2 rounded-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all"
+                className="w-full mr-12 pl-10 pr-4 py-2 rounded-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all"
                 value={input}
                 onChange={(e) => handleChange(e.target.value)}
             />

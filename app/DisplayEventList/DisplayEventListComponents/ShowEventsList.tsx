@@ -7,16 +7,19 @@ import { DateRange } from "react-day-picker"
 export default function ShowEventsList() {
     const [selectedCategory, setSelectedCategory] = useState<string>("all")
     const [dateRange, setDateRange] = React.useState<DateRange | undefined>()
+    const [selectedLocation, setSelectedLocation] = useState<string>("everywhere")
 
     return (
         <div>
             <ShowEventListHeader
                 onCategoryChange={setSelectedCategory}
                 onDateRangeChange={setDateRange}
+                onLocationChange={setSelectedLocation}
             />
             <ShowEventListCard
                 selectedCategory={selectedCategory}
-                dateRange={dateRange} />
+                dateRange={dateRange}
+                selectedLocation={selectedLocation} />
         </div>
     )
 }

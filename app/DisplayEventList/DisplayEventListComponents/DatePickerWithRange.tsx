@@ -33,7 +33,7 @@ export function DatePickerWithRange({ onDateRangeChange }: DatePickerWithRangePr
             id="date"
             variant={"outline"}
             className={cn(
-              "w-[300px] justify-start text-left font-normal",
+              "justify-center items-center font-normal pl-10 pr-4 py-2 rounded-none bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all",
               !dateRange && "text-muted-foreground"
             )}
           >

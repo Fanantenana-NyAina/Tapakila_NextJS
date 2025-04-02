@@ -7,13 +7,15 @@ import SearchBar from '@/app/components/SearchBar'
 import SelectScrollable from './SelectScrollableCategorie'
 import { DatePickerWithRange } from './DatePickerWithRange'
 import { DateRange } from 'react-day-picker'
+import SelectScrollableLocation from './SelectScrollableLocation'
 
 interface ShowEventListHeaderProps {
     onCategoryChange: (category: string) => void
     onDateRangeChange: (range: DateRange | undefined) => void
+    onLocationChange: (location: string) => void
 }
 
-export default function ShowEventListHeader({ onCategoryChange, onDateRangeChange }: ShowEventListHeaderProps) {
+export default function ShowEventListHeader({ onCategoryChange, onDateRangeChange, onLocationChange }: ShowEventListHeaderProps) {
     const router = useRouter()
     const [searchQuery, setSearchQuery] = useState('')
     const [showMobileSearch, setShowMobileSearch] = useState(false)
@@ -49,6 +51,7 @@ export default function ShowEventListHeader({ onCategoryChange, onDateRangeChang
                         <SearchBar />
                         <SelectScrollable onCategoryChange={onCategoryChange} />
                         <DatePickerWithRange onDateRangeChange={onDateRangeChange} />
+                        <SelectScrollableLocation onLocationChange={onLocationChange} />
 
                     </div>
                 </div>

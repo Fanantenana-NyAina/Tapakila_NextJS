@@ -12,15 +12,17 @@ export interface Event {
     location: string
     description: string
     available_of_ticket: string
-    imageUrl?: string
+    imgUrl?: string
 }
 
 interface ShowEventListCardProps {
     selectedCategory?: string
     dateRange?: DateRange
+    selectedLocation?: string
+
 }
 
-export default function ShowEventListCard({ selectedCategory = 'all', dateRange }: ShowEventListCardProps) {
+export default function ShowEventListCard({ selectedCategory = 'all', dateRange, selectedLocation = 'everywhere' }: ShowEventListCardProps) {
     const [events, setEvents] = useState<Event[]>([])
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
     const [loading, setLoading] = useState(true)
@@ -70,7 +72,9 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange 
                     }
                 }
 
-                return categoryMatch && dateMatch
+                const locationMatch = selectedLocation == 'everywhere' || event.location.toLocaleLowerCase() === selectedLocation?.toLocaleLowerCase()
+
+                return categoryMatch && dateMatch && locationMatch
 
             })
 
@@ -78,7 +82,7 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange 
         }
 
         setFilteredEvents(filterEvent())
-    }, [dateRange, selectedCategory, events])
+    }, [dateRange, selectedCategory, events, selectedLocation])
 
     if (loading) {
         return (
@@ -92,7 +96,7 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange 
         return (
             <div className="text-center py-12">
                 <p className="text-xl text-gray-600">
-                    {selectedCategory === 'all' ? 'No events available' : `No events found in ${selectedCategory} category`}
+                    {selectedCategory === 'all' || selectedLocation === 'everywhere' ? 'No events available' : `No events found in ${selectedCategory} category` || `No events found in ${selectedCategory}`}
                 </p>
             </div>
         )
@@ -102,16 +106,21 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange 
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold text-center mb-12">
                 <span className='animate-pulse text-6xl'>🎉</span>
-                {selectedCategory === 'all' ? 'All upcoming events' : `Events in ${selectedCategory}`}
+                {selectedCategory === 'all' && selectedLocation === 'everywhere'
+                    ? 'All upcoming events'
+                    : selectedCategory !== 'all' && selectedLocation === 'everywhere'
+                        ? `Events in ${selectedCategory}`
+                        : selectedCategory === 'all' && selectedLocation !== 'everywhere'
+                            ? `Events at ${selectedLocation}`
+                            : `Events in ${selectedCategory} at ${selectedLocation}`}
                 <span className='animate-pulse text-6xl'>🎉</span>
             </h1>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredEvents.map(event => (
                     <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-48 w-full">
                             <Image
-                                src={event.imageUrl || '/cardImage/pexels-johannes-havn-835931-2417730.jpg'}
+                                src={event.imgUrl || '/cardImage/pexels-johannes-havn-835931-2417730.jpg'}
                                 alt={event.title}
                                 fill
                                 className="object-cover"
@@ -128,6 +137,7 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange 
                         <div className="p-6">
                             <h2 className="text-xl font-bold mb-2 line-clamp-2">{event.title}</h2>
                             <p className="text-gray-700 mb-6 line-clamp-3">{event.description}</p>
+                            <p>{event.location}</p>
                             <button
                                 className="px-4 py-2 bg-[#009de0] text-white rounded-lg hover:bg-green-900 transition-colors"
                                 onClick={() => router.push("/login")}

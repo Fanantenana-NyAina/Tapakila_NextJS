@@ -10,51 +10,50 @@ import React, { useEffect, useState } from 'react'
 
 interface Event {
     id: string
-    categorie: string
+    location: string
 }
 
-interface SelectScrollableProps {
-    onCategoryChange: (category: string) => void
+interface SelectScrollableLocationProps {
+    onLocationChange: (location: string) => void
 }
 
-export default function SelectScrollable({ onCategoryChange }: SelectScrollableProps) {
-    const [categories, setCategories] = useState<string[]>([])
-
+export default function SelectScrollableLocation({ onLocationChange }: SelectScrollableLocationProps) {
+    const [location, setlocation] = useState<string[]>([])
     useEffect(() => {
-        const fetchCategories = async () => {
+        const fetchlocation = async () => {
             try {
                 const res = await fetch("http://localhost:1818/events")
                 if (!res.ok) throw new Error("Failed to fetch events")
                 const data: Event[] = await res.json()
 
-                const uniqueCategories: string[] = [];
+                const uniqueLocation: string[] = [];
 
                 for (const event of data) {
-                    if (event.categorie && !uniqueCategories.includes(event.categorie)) {
-                        uniqueCategories.push(event.categorie);
+                    if (event.location && !uniqueLocation.includes(event.location)) {
+                        uniqueLocation.push(event.location);
                     }
                 }
 
-                setCategories(uniqueCategories);
+                setlocation(uniqueLocation);
             } catch (error) {
                 console.error("Fetch error:", error)
             }
         }
 
-        fetchCategories();
+        fetchlocation();
     }, []);
 
 
     return (
-        <Select onValueChange={onCategoryChange}>
+        <Select onValueChange={onLocationChange}>
             <SelectTrigger className="h-80 rounded-r-none rounded-l-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all">
-                <SelectValue placeholder="Categories" />
+                <SelectValue placeholder="location" />
             </SelectTrigger>
-            <SelectContent className="">
-                <SelectItem value="all">All categories</SelectItem>
-                {categories.map((category, index) => (
-                    <SelectItem key={index} value={category}>
-                        {category}
+            <SelectContent>
+                <SelectItem value="everywhere">All location</SelectItem>
+                {location.map((loc, index) => (
+                    <SelectItem key={index} value={loc}>
+                        {loc}
                     </SelectItem>
                 ))}
             </SelectContent>
