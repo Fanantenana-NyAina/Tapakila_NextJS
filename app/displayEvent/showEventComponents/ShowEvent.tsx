@@ -93,12 +93,12 @@ export default function ShowEvent() {
   }
 
   return (
-    <div className='min-h-screen flex flex-col bg-white'>
-      <div className='relative flex-1 bg-[#0a1128] flex flex-col lg:flex-row items-center p-8 gap-8 h-fit'>
+    <div className='h-screen flex flex-col bg-white'>
+      <div className='relative flex-1 bg-[#0a1128] flex flex-col lg:flex-row items-center p-8 gap-8'>
         <button
           onClick={handleBackClick}
           aria-label="Back"
-          className="absolute right-12 top-8 cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors"
+          className="absolute bottom-8 right-11 lg:right-12 lg:top-8 cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors h-fit"
         >
           <IoArrowBack size={24} className="text-white hover:text-[#009de0]" />
         </button>
