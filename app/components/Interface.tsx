@@ -1,19 +1,18 @@
 'use client'
 
-// import { useState } from "react";
 import ActiveSlider from "./ActiveSlider";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useRouter } from "next/navigation";
+import About from "./About";
 
 export interface SearchResultType {
-  id: number
-  name: string
-  email: string
+  id: string;
+  name: string;
+  categorie: string;
 }
 
 export default function Page() {
-  // const [results, setResults] = useState<SearchResultType[]>([])
   const router = useRouter()
 
   const handleClick = () => {
@@ -49,9 +48,15 @@ export default function Page() {
       <div id="events" className="w-full h-screen">
         <ActiveSlider />
       </div>
-      
+
+      <div id="about" className="w-full h-screen">
+        <About />
+      </div>
+
       {/* footer section */}
-      <Footer />
+      <div id="contact">
+        <Footer />
+      </div>
     </>
   );
 }

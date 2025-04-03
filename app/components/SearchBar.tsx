@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { SearchResultType } from "./Interface";
 
-export default function SearchBar({ setResults }: { setResults: (results: SearchResultType[]) => SearchResultType }) {
+interface SearchBarProps {
+    setResults: (results: SearchResultType[]) => void;
+}
+
+export default function SearchBar({ setResults }: SearchBarProps) {
     const [input, setInput] = useState<string>("");
 
     const backendURL: string = "http://localhost:1818/events";
@@ -19,7 +23,7 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
             const response = await fetch(backendURL, { method: 'GET' });
             const json = await response.json();
 
-            const res = json.filter((data: { categorie: string }) =>
+            const res = json.filter((data: SearchResultType) =>
                 data.categorie.toLowerCase().includes(value.toLowerCase())
             );
 
@@ -48,7 +52,7 @@ export default function SearchBar({ setResults }: { setResults: (results: Search
             <input
                 type="text"
                 placeholder="Searching for an event ?"
-                className="w-full pl-10 pr-4 py-2 rounded-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all"
+                className="w-full mr-12 pl-10 pr-4 py-2 rounded-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all"
                 value={input}
                 onChange={(e) => handleChange(e.target.value)}
             />

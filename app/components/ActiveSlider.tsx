@@ -7,10 +7,11 @@ import { FreeMode, Pagination } from "swiper/modules";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { IoIosArrowRoundForward, IoIosArrowRoundBack } from "react-icons/io";
+import { Event } from "../DisplayEventList/DisplayEventListComponents/ShowEventListCard";
 
 export default function ActiveSlider() {
   const router = useRouter();
-  const [events, setEvents] = useState<[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const swiperRef = useRef(null);
 
   useEffect(() => {
@@ -86,8 +87,8 @@ export default function ActiveSlider() {
                   {/* Event Content */}
                   <div className="relative h-full flex flex-col p-6">
                     <div className="flex-grow flex flex-col justify-center items-start">
-                      <h2 className="text-xl md:text-2xl font-bold mb-3 bg-[#009de0b0] h-12 w-fit px-4 py-1 rounded-2xl">{event.name}</h2>
-                      <p className="text-xl md:text-base">{event.event_description}</p>
+                      <h2 className="text-xl md:text-2xl font-bold mb-3 bg-[#009de0b0] h-12 w-fit px-4 py-1 rounded-2xl">{event.title}</h2>
+                      <p className="text-xl md:text-base">{event.description}</p>
                     </div>
 
                     {/* Button */}

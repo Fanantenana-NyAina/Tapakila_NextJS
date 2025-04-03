@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiUser } from "react-icons/fi"
 
-type MenyItem = "Home" | "Events" | "Contact"
+type MenyItem = "Home" | "Events" | "About" | "Contact"
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export default function Header() {
   }, [])
 
 
-  const menuItems: MenyItem[] = ["Home", "Events", "Contact"]
+  const menuItems: MenyItem[] = ["Home", "Events", "About", "Contact"]
 
   const handleConnexionClick = () => {
     router.push("/login")

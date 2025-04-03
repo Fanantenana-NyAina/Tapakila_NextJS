@@ -47,10 +47,10 @@ export default function SelectScrollable({ onCategoryChange }: SelectScrollableP
 
     return (
         <Select onValueChange={onCategoryChange}>
-            <SelectTrigger className="bg-white/10 text-white border border-transparent hover:border-white/30">
+            <SelectTrigger className="h-80 rounded-r-none rounded-l-full bg-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#009de0] border border-transparent hover:border-white/30 transition-all">
                 <SelectValue placeholder="Categories" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="">
                 <SelectItem value="all">All categories</SelectItem>
                 {categories.map((category, index) => (
                     <SelectItem key={index} value={category}>
