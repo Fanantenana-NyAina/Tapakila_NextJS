@@ -1,10 +1,11 @@
 'use client'
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { ClipLoader } from 'react-spinners';
-import Image from 'next/image';
-import { FaCartArrowDown } from "react-icons/fa";
+import { ClipLoader } from 'react-spinners'
+import Image from 'next/image'
+import { FaCartArrowDown } from "react-icons/fa"
 import { IoArrowBack } from "react-icons/io5"
+import { FiUser } from "react-icons/fi"
 
 interface Ticket {
   type_of_ticket: string
@@ -21,19 +22,67 @@ interface Event {
   tickets: Ticket[]
 }
 
+const QuantityFieldPurchasing = ({ ticket, quantity, setQuantity, onClose, onConfirm }) => {
+  const totalPrice = (ticket.price * quantity).toFixed(2)
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+        <h3 className="text-xl font-bold mb-4">Reserve {ticket.type_of_ticket}</h3>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">Quantity</label>
+          <input
+            type="number"
+            min="1"
+            value={quantity}
+            onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+            className="w-full p-2 border rounded"
+          />
+        </div>
+
+        <div className="mb-4">
+          <p className="font-bold">Total: ${totalPrice}</p>
+        </div>
+
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            className="px-4 py-2 bg-[#009de0] text-white rounded hover:bg-[#007bb5]"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function ShowEvent() {
   const [event, setEvent] = useState<Event | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string>('')
   const router = useRouter()
   const { eventId } = useParams() as { eventId: string }
+  const [username, setUsername] = useState('')
+  const [isOpenProfileMenu, setIsOpenProfileMenu] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null)
+  const [quantity, setQuantity] = useState(1)
+  const [showQuantityFieldPurchasing, setShowQuantityFieldPurchasing] = useState(false)
 
   const handleBackClick = () => {
     router.back()
   }
 
   const formatToLongDate = (dateString: Date) => {
-    const date = new Date(dateString);
+    const date = new Date(dateString)
     const options = {
       weekday: 'long',
       day: 'numeric',
@@ -42,9 +91,88 @@ export default function ShowEvent() {
       hour: '2-digit',
       minute: '2-digit',
       hour12: false
-    };
-    return date.toLocaleDateString('en-EN', options);
-  };
+    }
+    return date.toLocaleDateString('en-EN', options)
+  }
+
+  const handleProfileClick = () => {
+    setIsOpenProfileMenu(!isOpenProfileMenu)
+  }
+
+  const handleChangeAccount = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("username")
+    router.push("/login")
+    setIsOpenProfileMenu(false)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("username")
+    router.push("/login")
+    setIsOpenProfileMenu(false)
+  }
+
+  const handleReservationConfirm = async () => {
+    if (!selectedTicket) return
+
+    try {
+      const token = localStorage.getItem("token")
+      if (!token) {
+        alert("Please login to make a reservation")
+        router.push("/login")
+        return
+      }
+
+      const response = await fetch(`http://localhost:1818/reservations`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          event_id: eventId,
+          ticket_type: selectedTicket.type_of_ticket,
+          quantity: quantity
+        })
+      })
+
+      if (response.ok) {
+        alert("Reservation successful!")
+        setShowQuantityFieldPurchasing(false)
+        setQuantity(1)
+      } else {
+        throw new Error('Failed to make reservation')
+      }
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Reservation failed')
+    }
+  }
+
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null
+        if (!token) {
+          alert("Please login to access this page")
+          router.push("/login")
+          return
+        }
+
+        const storedUsername = localStorage.getItem("username")
+        if (storedUsername) {
+          setUsername(storedUsername)
+        }
+
+        setIsLoading(false)
+      } catch (error) {
+        console.error("Authentication error:", error)
+        router.replace("/error")
+      }
+    }
+
+    checkAuth()
+  }, [])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,8 +206,7 @@ export default function ShowEvent() {
   if (loading) {
     return (
       <div className='mt-44 flex flex-col justify-center items-center '>
-        <ClipLoader color='#009de0'
-          size={80} />
+        <ClipLoader color='#009de0' size={80} />
         <p className='text-[#009de0] mt-4 font-mono'>Loading please wait....</p>
       </div>
     )
@@ -109,15 +236,57 @@ export default function ShowEvent() {
 
   return (
     <div className='h-screen flex flex-col bg-white'>
+      {showQuantityFieldPurchasing && selectedTicket && (
+        <QuantityFieldPurchasing
+          ticket={selectedTicket}
+          quantity={quantity}
+          setQuantity={setQuantity}
+          onClose={() => setShowQuantityFieldPurchasing(false)}
+          onConfirm={handleReservationConfirm}
+        />
+      )}
+
       <div className='relative flex-1 bg-[#0a1128] flex flex-col lg:flex-row items-center p-8 gap-8'>
         <button
           onClick={handleBackClick}
           aria-label="Back"
-          className="absolute bottom-8 right-11 lg:right-12 lg:top-8 cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors h-fit"
+          className="absolute left-8 top-8 cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors h-fit"
         >
           <IoArrowBack size={24} className="text-white hover:text-[#009de0]" />
         </button>
-        <div className="relative w-full lg:w-1/2 h-[400px]">
+
+        <div className="absolute right-8 top-8 flex items-center gap-4">
+          <button
+            onClick={handleProfileClick}
+            className="flex items-center gap-2 text-white cursor-pointer p-2 rounded-full hover:bg-white/10 transition-colors"
+          >
+            <FiUser size={20} />
+            {!isLoading && username && (
+              <span className="text-sm truncate max-w-[100px]">{username}</span>
+            )}
+          </button>
+
+          {isOpenProfileMenu && (
+            <div className="absolute right-0 top-12 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+              <div className="py-1">
+                <button
+                  onClick={handleChangeAccount}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Change Account
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="relative w-full lg:w-1/2 h-[400px] ml-14">
           <Image
             src='/cardImage/pexels-johannes-havn-835931-2417730.jpg'
             alt={event.title}
@@ -165,7 +334,6 @@ export default function ShowEvent() {
             </div>
           </div>
 
-
           <div className='sm:w-full md:w-[50%] flex flex-col gap-2'>
             <h2 className='font-bold text-xl underline'>Available Tickets:</h2>
             <div className="overflow-x-auto">
@@ -184,9 +352,12 @@ export default function ShowEvent() {
                       <td className="px-4 py-2 border text-center">{ticket.price}</td>
                       <td className="px-4 py-2 border flex justify-center items-center">
                         <button
-                          onClick={() => router.push("/login")}
-                          className="cursor-pointer flex items-center text-[#0a1128] hover:text-green-800
-            rounded-full font-medium transition-all">
+                          onClick={() => {
+                            setSelectedTicket(ticket)
+                            setShowQuantityFieldPurchasing(true)
+                          }}
+                          className="cursor-pointer flex items-center text-[#0a1128] hover:text-green-800 rounded-full font-medium transition-all"
+                        >
                           <FaCartArrowDown className="w-5 h-5 group-hover:scale-110 transition-transform" />
                         </button>
                       </td>
