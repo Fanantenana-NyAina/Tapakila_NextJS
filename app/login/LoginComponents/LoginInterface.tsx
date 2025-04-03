@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
 export default function LoginInterface() {
-    const backendURL = "http://localhost:1818";
+    const backendURL = "http://localhost:1818/auth/login";
     const hello = "Hello👋";
     const weclome = "Welcome to ";
     const tapakila = "Tapakila";
@@ -63,7 +63,6 @@ export default function LoginInterface() {
             const res = await fetch(backendURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                mode:'no-cors',
                 body: JSON.stringify({ email, password })
             });
 
@@ -72,8 +71,9 @@ export default function LoginInterface() {
             }
 
             const data = await res.json();
+            localStorage.setItem("username", data.username)
             localStorage.setItem("token", data.token);
-            router.push("/dashboard");
+            router.push("/userProfile");
 
         } catch (err: any) {
             setError(err.message);
