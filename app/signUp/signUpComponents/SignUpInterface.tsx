@@ -27,6 +27,7 @@ export default function SignInInterface() {
             }
 
             const data = await res.json();
+            localStorage.setItem("username", data.username);
             localStorage.setItem("token", data.token);
             router.push("/userprofile");
 
