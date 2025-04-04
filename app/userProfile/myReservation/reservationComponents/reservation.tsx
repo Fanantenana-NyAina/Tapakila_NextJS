@@ -5,7 +5,7 @@ import { IoArrowBack } from "react-icons/io5"
 import { FiUser } from "react-icons/fi"
 
 export default function Reservation() {
-    const { userId } = useParams()
+    const getUsername = localStorage.getItem("username")
     const router = useRouter()
     const [username, setUsername] = useState<string>('');
     const [isOpenProfileMenu, setIsOpenProfileMenu] = useState<boolean>(false);
@@ -63,7 +63,7 @@ export default function Reservation() {
     useEffect(() => {
         const fetchReservationList = async () => {
             try {
-                const res = await fetch(`http://localhost:1818/reservation/list/${userId}`)
+                const res = await fetch(`http://localhost:1818/reservation/list/${getUsername}`)
                 if (!res.ok) {
                     throw new Error('Event not found!');
                 }

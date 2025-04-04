@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
-import { LuTicketCheck } from "react-icons/lu";
+import { LuTicketCheck } from "react-icons/lu"
 
 export interface Event {
     id: string
@@ -13,29 +13,27 @@ export interface Event {
     location: string
     description: string
     available_of_ticket: string
-    imgUrl?: string
+    img?: string
 }
 
 interface ShowEventListCardProps {
     selectedCategory?: string
     dateRange?: DateRange
     selectedLocation?: string
-
 }
 
 export default function ShowEventListCard({ selectedCategory = 'all', dateRange, selectedLocation = 'everywhere' }: ShowEventListCardProps) {
     const [events, setEvents] = useState<Event[]>([])
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
     const [loading, setLoading] = useState(true)
+    const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
     const router = useRouter()
 
     useEffect(() => {
         const fetchEvents = async () => {
             try {
                 const res = await fetch("http://localhost:1818/events")
-
                 if (!res.ok) throw new Error("Failed to fetch events")
-
                 const data = await res.json()
                 setEvents(data)
             } catch (error) {
@@ -44,35 +42,33 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange,
                 setLoading(false)
             }
         }
-
         fetchEvents()
     }, [])
 
     useEffect(() => {
         const filterEvent = () => {
-            const filtering = events.filter(event => {
-                const categoryMatch = selectedCategory === 'all' || event.categorie.toLocaleLowerCase() === selectedCategory.toLocaleLowerCase()
+            return events.filter(event => {
+                const categoryMatch = selectedCategory === 'all' ||
+                    event.categorie.toLowerCase() === selectedCategory.toLowerCase()
 
-                let dateMatch = true;
+                let dateMatch = true
                 if (dateRange?.from && dateRange?.to) {
                     const eventDate = new Date(event.date_of_event)
-
-                    if (eventDate < dateRange.from || eventDate > dateRange.to) {
-                        dateMatch = false
-                    }
+                    dateMatch = eventDate >= dateRange.from && eventDate <= dateRange.to
                 }
 
-                const locationMatch = selectedLocation == 'everywhere' || event.location.toLocaleLowerCase() === selectedLocation?.toLocaleLowerCase()
+                const locationMatch = selectedLocation === 'everywhere' ||
+                    event.location.toLowerCase() === selectedLocation.toLowerCase()
 
                 return categoryMatch && dateMatch && locationMatch
-
             })
-
-            return filtering
         }
-
         setFilteredEvents(filterEvent())
     }, [dateRange, selectedCategory, events, selectedLocation])
+
+    const handleImageError = (eventId: string) => {
+        setImageErrors(prev => ({ ...prev, [eventId]: true }))
+    }
 
     if (loading) {
         return (
@@ -86,7 +82,9 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange,
         return (
             <div className="text-center py-12">
                 <p className="text-xl text-gray-600">
-                    {selectedCategory === 'all' || selectedLocation === 'everywhere' ? 'No events available' : `No events found in ${selectedCategory} category` || `No events found in ${selectedCategory}`}
+                    {selectedCategory === 'all' || selectedLocation === 'everywhere'
+                        ? 'No events available'
+                        : `No events found in ${selectedCategory} category`}
                 </p>
             </div>
         )
@@ -109,14 +107,21 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange,
                 {filteredEvents.map(event => (
                     <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-48 w-full">
-                            <Image
-                                src={event.imgUrl || '/cardImage/pexels-johannes-havn-835931-2417730.jpg'}
-                                alt={event.title}
-                                fill
-                                className="object-cover"
-                                priority
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
+                            {imageErrors[event.id] || !event.img ? (
+                                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                                    <span className="text-gray-500">Image not available</span>
+                                </div>
+                            ) : (
+                                <Image
+                                    src={event.img}
+                                    alt={event.title}
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    onError={() => handleImageError(event.id)}
+                                />
+                            )}
                             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
                                 <span className="text-white font-semibold">
                                     {new Date(event.date_of_event).toLocaleDateString('en-EN')}
@@ -125,7 +130,7 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange,
                         </div>
 
                         <div className="p-6 relative flex flex-col justify-center items-center">
-                            <div className='flex flex-col justify-center items-start'>
+                            <div className='flex flex-col justify-center items-start w-full'>
                                 <h2 className="text-xl font-bold mb-2 line-clamp-2">{event.title}</h2>
                                 <p className="text-gray-700 mb-3 line-clamp-3">{event.description}</p>
                                 <div className='flex items-center gap-2'>
@@ -137,17 +142,15 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange,
                                 </div>
                             </div>
 
-                            <p></p>
-                            <div className='flex justify-end items-end w-full'>
+                            <div className='flex justify-end items-end w-full mt-4'>
                                 <button
-                                    className="cursor-pointer flex items-center gap-2 bg-[#009de0] text-white py-2 px-4 rounded-full font-medium hover:bg-green-900 hover:text-white transition-all"
+                                    className="cursor-pointer flex items-center gap-2 bg-[#009de0] text-white py-2 px-4 rounded-full font-medium hover:bg-blue-700 transition-all"
                                     onClick={() => router.push(`/displayEvent/${event.id}`)}
                                 >
                                     <span>About it</span>
                                     <LuTicketCheck className="w-5 h-5" />
                                 </button>
                             </div>
-
                         </div>
                     </div>
                 ))}
