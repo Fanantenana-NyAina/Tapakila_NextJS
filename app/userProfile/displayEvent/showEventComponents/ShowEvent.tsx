@@ -19,6 +19,7 @@ interface Event {
   categorie: string
   description: string
   location: string
+  img: string
   tickets: Ticket[]
 }
 
@@ -288,7 +289,7 @@ export default function ShowEvent() {
 
         <div className="relative w-full lg:w-1/2 h-[400px] ml-14">
           <Image
-            src='/cardImage/pexels-johannes-havn-835931-2417730.jpg'
+            src={event.img}
             alt={event.title}
             fill
             className='object-cover rounded-4xl shadow-2xl'

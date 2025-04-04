@@ -13,7 +13,7 @@ export interface Event {
     location: string
     description: string
     available_of_ticket: string
-    imgUrl?: string
+    img: string
 }
 
 interface ShowEventListCardProps {
@@ -110,7 +110,7 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange,
                     <div key={event.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         <div className="relative h-48 w-full">
                             <Image
-                                src={event.imgUrl || '/cardImage/pexels-johannes-havn-835931-2417730.jpg'}
+                                src={event.img}
                                 alt={event.title}
                                 fill
                                 className="object-cover"
