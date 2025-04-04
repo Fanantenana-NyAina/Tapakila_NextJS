@@ -1,16 +1,15 @@
 'use client'
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { IoArrowBack } from "react-icons/io5"
 import { FiUser } from "react-icons/fi"
 
 export default function Reservation() {
-    const getUsername = localStorage.getItem("username")
+    // const getUsername = localStorage.getItem("username")
     const router = useRouter()
     const [username, setUsername] = useState<string>('');
     const [isOpenProfileMenu, setIsOpenProfileMenu] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    const [reservations, setReservation] = useState()
 
     const handleBackClick = () => {
         router.back()
@@ -60,28 +59,28 @@ export default function Reservation() {
         checkAuth();
     }, []);
 
-    useEffect(() => {
-        const fetchReservationList = async () => {
-            try {
-                const res = await fetch(`http://localhost:1818/reservation/list/${getUsername}`)
-                if (!res.ok) {
-                    throw new Error('Event not found!');
-                }
+    // useEffect(() => {
+    //     const fetchReservationList = async () => {
+    //         try {
+    //             const res = await fetch(`http://localhost:1818/reservation/list/${getUsername}`)
+    //             if (!res.ok) {
+    //                 throw new Error('Event not found!');
+    //             }
 
-                const data = await res.json();
-                if (data.length === 0) {
-                    throw new Error('Event not found!');
-                }
+    //             const data = await res.json();
+    //             if (data.length === 0) {
+    //                 throw new Error('Event not found!');
+    //             }
 
-                setReservation(data)
+    //             setReservation(data)
 
-            } catch (error) {
-                console.error(error)
-            }
-        }
+    //         } catch (error) {
+    //             console.error(error)
+    //         }
+    //     }
 
-        fetchReservationList()
-    })
+    //     fetchReservationList()
+    // })
 
     return (
         <div>
@@ -143,10 +142,7 @@ export default function Reservation() {
                     </thead>
                     <tbody>
                         <tr className="hover:bg-gray-100">
-                            <td className="px-4 py-2 border text-center">AZHJKE</td>
-                            <td className="px-4 py-2 border text-center">sgkjdqhklqj</td>
-                            <td className="px-4 py-2 border text-center">dshkqjsdhk</td>
-                            <td className="px-4 py-2 border text-center">hkjfjkdljsq</td>
+                            <td className="px-4 py-2 border text-center"></td>
                         </tr>
                     </tbody>
                 </table>

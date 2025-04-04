@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 export default function LoginInterface() {
     const backendURL = "http://localhost:1818/auth/login";
@@ -159,6 +160,10 @@ export default function LoginInterface() {
                             </button>
                         </div>
                     </form>
+                    <Link
+                        href="/signUp">
+                        create your account
+                    </Link>
                     {error && <p className='text-center bg-red-600 text-white mt-4 p-2'>{error}</p>}
                 </div>
 

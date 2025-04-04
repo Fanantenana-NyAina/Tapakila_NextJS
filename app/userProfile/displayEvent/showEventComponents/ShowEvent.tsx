@@ -114,41 +114,63 @@ export default function ShowEvent() {
     setIsOpenProfileMenu(false)
   }
 
-  const handleReservationConfirm = async () => {
-    if (!selectedTicket) return
-
-    try {
-      const token = localStorage.getItem("token")
-      if (!token) {
-        alert("Please login to make a reservation")
-        router.push("/login")
-        return
-      }
-
-      const response = await fetch(`http://localhost:1818/reservations`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          event_id: eventId,
-          ticket_type: selectedTicket.type_of_ticket,
-          quantity: quantity
-        })
-      })
-
-      if (response.ok) {
-        alert("Reservation successful!")
-        setShowQuantityFieldPurchasing(false)
-        setQuantity(1)
-      } else {
-        throw new Error('Failed to make reservation')
-      }
-    } catch (err) {
-      alert(err instanceof Error ? err.message : 'Reservation failed')
-    }
+  const handleReservationConfirm = () => {
+    alert("Added to your reservation !")
   }
+
+
+  /** DESACTIOVATION DE L'ACHAT BILLET PAR 'CONFIRM' CAR PAS FONCTIONNEL🥲 */
+  // const handleReservationConfirm = async () => {
+  //   if (!selectedTicket) return;
+
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     if (!token) {
+  //       alert("Please login to make a reservation");
+  //       router.push("/login");
+  //       return;
+  //     }
+
+  //     const username = localStorage.getItem("username");
+  //     if (!username) {
+  //       throw new Error("User not found");
+  //     }
+
+  //     const userResponse = await fetch(`http://localhost:1818/user/${username}`);
+  //     if (!userResponse.ok) {
+  //       throw new Error('Failed to fetch user data');
+  //     }
+  //     const userData = await userResponse.json();
+
+  //     const response = await fetch(`http://localhost:1818/reservation/reserve`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": `Bearer ${token}`
+  //       },
+  //       body: JSON.stringify({
+  //         id_event: eventId,
+  //         id_user: userData.id,
+  //         ticket_number: quantity,
+  //         ticket_type: selectedTicket.type_of_ticket,
+  //         date_reservation: new Date().toISOString()
+  //       })
+  //     });
+
+  //     if (response.ok) {
+  //       alert("Reservation successful!");
+  //       setShowQuantityFieldPurchasing(false);
+  //       setQuantity(1);
+  //     } else {
+  //       const errorData = await response.json();
+  //       throw new Error(errorData.error || 'Failed to make reservation');
+  //     }
+  //   } catch (err) {
+  //     alert(err instanceof Error ? err.message : 'Reservation failed');
+  //     console.error("Reservation error:", err);
+  //   }
+  // };
+
 
   useEffect(() => {
     const checkAuth = () => {
