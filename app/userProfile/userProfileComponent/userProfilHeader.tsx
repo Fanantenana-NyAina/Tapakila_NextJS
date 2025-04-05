@@ -87,8 +87,8 @@ export default function UserProfileHeader() {
               before:bg-blue-400 before:transition-all before:duration-300 hover:before:w-full"
                                 >
                                     <Link href={
-                                        item.toLowerCase() === "events" ? `/userprofile/EventsListPage` :
-                                            item.toLowerCase() === "my_reservation" ? `/userprofile/myReservation` :
+                                        item.toLowerCase() === "events" ? `/userProfile/EventsListPage` :
+                                            item.toLowerCase() === "my_reservation" ? `/userProfile/myReservation` :
                                                 `#${item.toLowerCase()}`
                                     }>
                                         {item}
