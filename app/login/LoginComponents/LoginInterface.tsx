@@ -74,7 +74,7 @@ export default function LoginInterface() {
             const data = await res.json();
             localStorage.setItem("username", data.username)
             localStorage.setItem("token", data.token);
-            router.push("/userprofile");
+            router.push("/userProfile");
 
         } catch (err: any) {
             setError(err.message);
