@@ -141,7 +141,7 @@ export default function ShowEventListCard({ selectedCategory = 'all', dateRange,
                             <div className='flex justify-end items-end w-full'>
                                 <button
                                     className="cursor-pointer flex items-center gap-2 bg-[#009de0] text-white py-2 px-4 rounded-full font-medium hover:bg-green-900 hover:text-white transition-all"
-                                    onClick={() => router.push(`/userprofile/displayEvent/${event.id}`)}
+                                    onClick={() => router.push(`/userProfile/displayEvent/${event.id}`)}
                                 >
                                     <span>About it</span>
                                     <LuTicketCheck className="w-5 h-5" />
